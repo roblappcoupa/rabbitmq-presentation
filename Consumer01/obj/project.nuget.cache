@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "01BmL6DIGMyWNHIz20QTC3hAUmsQijkqZ2bfKCII13Oc4fY88jD4+ZkKoUuwb8grTrDKu5Sc+JlWhcc/Eq+pdA==",
+  "success": true,
+  "projectFilePath": "C:\\Code\\TestApps\\RabbitPresentation\\Consumer01\\Consumer01.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\R.Lapp\\.nuget\\packages\\easynetq\\7.5.2\\easynetq.7.5.2.nupkg.sha512",
+    "C:\\Users\\R.Lapp\\.nuget\\packages\\rabbitmq.client\\6.5.0\\rabbitmq.client.6.5.0.nupkg.sha512",
+    "C:\\Users\\R.Lapp\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\R.Lapp\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
