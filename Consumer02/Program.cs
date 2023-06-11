@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Common;
+﻿using Common;
 using System.Text.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
