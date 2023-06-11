@@ -15,9 +15,9 @@ channel.QueueDeclare(
     autoDelete: false,
     arguments: null);
 
-channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+channel.BasicQos(prefetchSize: 0, prefetchCount: 10, global: false);
 
-Console.WriteLine("Waiting for messages...");
+Console.WriteLine("Program will start waiting for messages. Press any key to exit...\n");
 
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (model, ea) =>
@@ -35,7 +35,7 @@ consumer.Received += (model, ea) =>
 
     Thread.Sleep(TimeSpan.FromSeconds(message.DelayInSeconds ?? 5));
 
-    Console.WriteLine("Completed processing message {0}", message.Id);
+    Console.WriteLine("Completed processing message {0}\n", message.Id);
 
     channel.BasicAck(ea.DeliveryTag, false);
 };
@@ -48,5 +48,5 @@ channel.BasicConsume(
     autoAck: false,
     consumer: consumer);
 
-Console.WriteLine("Press any key to exit");
+// Keep processing messages until the user presses a key
 Console.ReadLine();
