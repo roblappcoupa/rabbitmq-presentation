@@ -8,11 +8,17 @@ var factory = new ConnectionFactory { HostName = "localhost" };
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();
 
+const string exchangeName = "Example01_Exchange";
+const string queueName = "Example01_Queue";
+const string routingKey = "Key0";
+
+channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
+
 // We always ensure the queue is created
 // This ensures that if the producer starts before the consumer, the messages will be available
 // in the queue for the producer once it starts
 channel.QueueDeclare(
-    queue: "consumer01",
+    queue: queueName,
     durable: false,
     exclusive: false,
     autoDelete: false,
@@ -57,9 +63,10 @@ while (true)
 
     Console.WriteLine("Publishing message {0}", id);
 
+    // Publish a message to the broker
     channel.BasicPublish(
-        exchange: string.Empty,
-        routingKey: "consumer01",
+        exchange: exchangeName,
+        routingKey: routingKey,
         basicProperties: null,
         body: body);
 

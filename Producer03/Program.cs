@@ -6,6 +6,7 @@ using var bus = RabbitHutch.CreateBus(
     "host=localhost",
     x => x
         .EnableConsoleLogger()
+        .EnableNewtonsoftJson()
         .EnableAlwaysNackWithoutRequeueConsumerErrorStrategy());
 
 var id = 0;
@@ -38,7 +39,7 @@ while (true)
         DelayInSeconds = delay
     };
 
-    Console.WriteLine("Publishing message");
+    Console.WriteLine("Publishing message {0}", id);
     await bus.PubSub.PublishAsync(message);
-    Console.WriteLine("Message published");
+    Console.WriteLine("Published message {0}\n", id);
 }

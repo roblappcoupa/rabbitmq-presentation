@@ -3,22 +3,35 @@ using Common;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
+// Create connection and channel
 var factory = new ConnectionFactory { HostName = "localhost" };
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();
 
-// Note: queue name matches what's being used in the message routing key
+const string exchangeName = "Example01_Exchange";
+const string queueName = "Example01_Queue";
+const string routingKey = "Key0";
+
+// Ensure the exchange is created
+channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
+
+// Ensure the queue is created
 channel.QueueDeclare(
-    queue: "consumer01",
+    queue: queueName,
     durable: false,
     exclusive: false,
     autoDelete: false,
     arguments: null);
 
-channel.BasicQos(prefetchSize: 0, prefetchCount: 10, global: false);
+// Set prefetch count
+channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 
-Console.WriteLine("Program will start waiting for messages. Press any key to exit...\n");
+channel.QueueBind(
+    queue: queueName,
+    exchange: exchangeName,
+    routingKey: routingKey);
 
+// Declare an event handler that will fire when a message is delivered
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (model, ea) =>
 {
@@ -33,20 +46,20 @@ consumer.Received += (model, ea) =>
 
     Console.WriteLine("Received message. Id: {0}, Delay: {1}, Message: {2}", message.Id, message.DelayInSeconds, message.Text);
 
+    // Simulate some work
     Thread.Sleep(TimeSpan.FromSeconds(message.DelayInSeconds ?? 5));
 
     Console.WriteLine("Completed processing message {0}\n", message.Id);
 
+    // Manually acknowledge message
     channel.BasicAck(ea.DeliveryTag, false);
 };
 
-// Note:
-// 1. autoAck is set to true
-// 2. queue name matches the message routing key set on the producer side
 channel.BasicConsume(
-    queue: "consumer01",
+    queue: queueName,
     autoAck: false,
     consumer: consumer);
 
-// Keep processing messages until the user presses a key
+// Keep the program running and processing messages until the user presses a key
+Console.WriteLine("Waiting for messages... Press any key to exit");
 Console.ReadLine();
