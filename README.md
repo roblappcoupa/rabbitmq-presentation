@@ -27,4 +27,4 @@ To produce messages, open the command prompt window that is running the producer
 ```
 --Message Hello, World --Delay 10 --RoutingKey Key0
 ```
-You will see the message being handled by the producer.
+You will see the message being handled by the consumer.
