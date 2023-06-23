@@ -33,5 +33,5 @@ await bus.PubSub.SubscribeAsync<Message>(
         Console.WriteLine("Finished processing message {0}\n", message.Id);
     });
 
-Console.WriteLine("Waiting for messages... Press any key to exit");
+Console.WriteLine("Waiting for messages... Press Enter to exit");
 Console.ReadLine();
