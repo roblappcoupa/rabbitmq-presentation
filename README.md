@@ -21,7 +21,7 @@ You should have a single queue named `Queue0` that is bound to an exchange calle
 
 To produce messages, open the command prompt window that is running the producer and enter a message in this format
 ```
---Message <string> --Delay <int> -- RoutingKey <string>
+--Message <string> --Delay <int> --RoutingKey <string>
 ```
 `<string>` should be replaced with a string message, `<int>` should be replaced with a positive integer that represents the total number of seconds that the conumser should simulate "doing work" and the final `<string>` should be replaced with the names of one of the queues that was provided when starting the consumer. For example, entering this:
 ```
