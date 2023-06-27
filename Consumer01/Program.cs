@@ -83,7 +83,6 @@ for (var i = 0; i < args.Length; i++)
         // We add this here to demo how consumers can handle Exceptions
         if (string.Equals(message.Text, "throw", StringComparison.OrdinalIgnoreCase))
         {
-            
             Console.WriteLine(Common.Constants.ErrorMessage);
             throw new Exception(Common.Constants.ErrorMessage);
         }
